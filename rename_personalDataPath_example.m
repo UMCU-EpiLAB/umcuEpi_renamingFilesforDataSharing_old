@@ -42,7 +42,7 @@ cfg(2).filename = {'N1sChecked.mat'}; %example long-term iEEG file
 % {"name","x":,"y","z","size","material","manufacturer","group","hemisphere",...
 %  "silicon","cavity","resected","edge"};
 
-cfg(1).reqFields = {'name','group','silicon','soz','edge'}; % accompanies cfg(1).filename
+cfg(1).reqFields = {'name','group','silicon','soz','resected','edge'}; % accompanies cfg(1).filename
 cfg(2).reqFields = {'n1_peak_sample','amplitude_thresh','n1_peak_range','dataName','ch',...
     'cc_stimchans','cc_stimsets','epoch_length','epoch_prestim','dir','amp','reref'}; % accompanies cfg(2).filename
 
