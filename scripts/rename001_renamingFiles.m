@@ -1,7 +1,7 @@
 %% renaming files
 % author: Dorien van Blooijs
 % date: May 2021
-%adjusted for acute ECoG: Sem Hoogteijling - November 2023
+% adjusted for acute ECoG: Sem Hoogteijling - November 2023
 
 % first, several OPTIONS are programmed to: 
 % 1. change participants.tsv to contain only the participants that are
@@ -65,7 +65,7 @@ for ii = 1:size(particip_tsv,1)
         idx_ses = contains({subContent(:).name},'ses-');
         ses = {subContent(idx_ses).name};
         
-        if cfg(1).acute == 1
+        if cfg(1).longterm_acute == 1
             ses = regexprep(ses,'ses-SITUATION','');
             ses_new = {strjoin(ses,',')};
             particip_tsv.session(ii) = ses_new; %store all sessions found in folder
@@ -84,7 +84,7 @@ particip_tsv(del,:) = [];
 writetable(particip_tsv, fileList{idx_particip_tsv}, 'Delimiter', 'tab', 'FileType', 'text');% save file
 
 % housekeeping
-clear del folderContent idx_particip idx_particip_tsv idx_ses ii keep particip particip_tsv ses subContent
+clear del dirName folderContent idx_particip idx_particip_tsv idx_ses ii keep particip particip_tsv ses subContent
 
 %% 2. OPTIONAL: change content of scans.tsv if not all scans are going to be shared
 
@@ -101,7 +101,7 @@ for ii = 1: size(idx_scans_tsv,1) % for each scans.tsv file
     idx_scans = contains({folderContent(:).name},'.eeg');
     scans = {folderContent(idx_scans).name};
 
-    if cfg(1).acute == 1
+    if cfg(1).longterm_acute == 1
         folderContent = getAllFiles(folder);
         idx_scans = contains(folderContent,'.eeg');
         scans = folderContent(idx_scans);
@@ -146,12 +146,11 @@ clear dataDesc idx_dataDesc
 %% 4. OPTIONAL: change electrode positions in electrodes.tsv to MNI space (instead of positions on the individual brain)
 % THIS IS REQUIRED FOR SHARING DATA IN PUBLICLY AVAILABLE DATASETS!!!
 
-if cfg(1).acute ~= 1
+if cfg(1).longterm_acute == 0
     idx = contains(fileList,'electrodes.tsv')==0;
     
     fileList_elec = fileList;
     fileList_elec(idx) = [];
-    
     
     for subj = 1:size(fileList_elec,1)
 
@@ -159,8 +158,7 @@ if cfg(1).acute ~= 1
     
     end
     disp('Conversion to MNI space is completed.')
-    
-    
+     
     % housekeeping
     clear fileList_elec idx subj
 end

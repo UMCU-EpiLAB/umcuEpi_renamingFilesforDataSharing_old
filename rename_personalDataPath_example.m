@@ -25,7 +25,7 @@ addpath(jsonlab_folder)
 
 
 %% name recognizable part of a file of which the content should be evaluated
-cfg(1).acute = 0; % long-term iEEG (0) or acute iEEG (1)
+cfg(1).longterm_acute = 0; % long-term iEEG (0) or acute iEEG (1)
 cfg(1).filename = {'electrodes.tsv'};
 cfg(2).filename = {'N1sChecked.mat'}; %example long-term iEEG file
 
